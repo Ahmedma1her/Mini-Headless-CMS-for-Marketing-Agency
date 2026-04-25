@@ -22,7 +22,7 @@ await mongoose.connect ("mongodb://localhost:27017/minicmsproject");
     } catch (error) {
         console.log(error);
     }
->>>>>>> 2359ced37a5bdc60b20352d1778ed98f07d213a5
+
 }
 
 connectDB();
@@ -34,4 +34,3 @@ app .listen (port, () => {
 =======
     console.log ("server running");
 });
->>>>>>> 2359ced37a5bdc60b20352d1778ed98f07d213a5
