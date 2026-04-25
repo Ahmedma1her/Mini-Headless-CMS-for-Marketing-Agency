@@ -6,6 +6,15 @@ app.use(express.json());
 const mongoose= require("mongoose");
 
 async function connectDB () {
+<<<<<<< HEAD
+ try{
+await mongoose.connect ("mongodb://localhost:27017/minicmsproject");
+ console.log("MongoDB Connected");
+
+ } catch (error) {
+ console.log(error);
+ }
+=======
     try{
 await mongoose.connect ("mongodb://localhost:27017/minicmsproject");
     console.log("MongoDB Connected");
@@ -13,10 +22,16 @@ await mongoose.connect ("mongodb://localhost:27017/minicmsproject");
     } catch (error) {
         console.log(error);
     }
+>>>>>>> 2359ced37a5bdc60b20352d1778ed98f07d213a5
 }
 
 connectDB();
 const port = process.env.PORT || 5000;
 app .listen (port, () => {
+<<<<<<< HEAD
+ console.log ("server running");
+});
+=======
     console.log ("server running");
 });
+>>>>>>> 2359ced37a5bdc60b20352d1778ed98f07d213a5
