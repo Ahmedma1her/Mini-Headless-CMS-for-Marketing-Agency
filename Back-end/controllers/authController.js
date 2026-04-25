@@ -105,5 +105,5 @@ exports.login = async (req, res) => {
  } catch (error) {
  res.status(500).json({ error: error.message });
  }
->>>>>>> 2359ced37a5bdc60b20352d1778ed98f07d213a5
+
 };
