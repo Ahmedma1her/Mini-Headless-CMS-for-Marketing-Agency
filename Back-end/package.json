@@ -1,5 +1,13 @@
 {
+<<<<<<< HEAD
   "name": "back-end",
+=======
+
+  "name": "cms",
+
+  "name": "mini-cms-backend",
+
+>>>>>>> b2eefc5562284c21fe5910332291cc17fa9b11c3
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,5 +17,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+<<<<<<< HEAD
   "type": "commonjs"
+=======
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+
+
+    "dotenv": "^17.4.2",
+
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.5.0",
+    "nodemon": "^3.1.14"
+  }
+>>>>>>> b2eefc5562284c21fe5910332291cc17fa9b11c3
 }
