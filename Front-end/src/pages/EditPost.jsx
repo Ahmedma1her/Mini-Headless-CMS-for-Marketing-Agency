@@ -21,25 +21,19 @@ const EditPost = ({ onBack }) => {
   };
 
   const handlePublish = () => {
-    // Add your publish logic here
     console.log('Publishing post:', { postTitle, postContent, category });
     if (onBack) onBack();
   };
 
   return (
     <div className="edit-post-container">
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* Main Content */}
       <div className="edit-post-main">
-        {/* Topbar */}
         <Topbar />
 
-        {/* Main Content Area */}
         <main className="edit-post-content">
           <div className="edit-post-wrapper">
-            {/* Breadcrumbs & Status */}
             <div className="edit-post-header">
               <div className="breadcrumbs">
                 <span>Content</span>
@@ -53,11 +47,8 @@ const EditPost = ({ onBack }) => {
               </div>
             </div>
 
-            {/* Editor Layout */}
             <div className="edit-post-grid">
-              {/* Primary Workspace */}
               <section className="edit-post-main-content">
-                {/* Title Input */}
                 <div className="title-section">
                   <input
                     type="text"
@@ -68,9 +59,7 @@ const EditPost = ({ onBack }) => {
                   />
                 </div>
 
-                {/* Rich Text Editor */}
                 <div className="editor-container">
-                  {/* Editor Toolbar */}
                   <div className="editor-toolbar">
                     <button
                       className={`toolbar-btn ${isBold ? 'active' : ''}`}
@@ -101,7 +90,6 @@ const EditPost = ({ onBack }) => {
                     </button>
                   </div>
 
-                  {/* Editor Content Area */}
                   <div className="editor-content">
                     <textarea
                       className="editor-textarea"
@@ -111,7 +99,6 @@ const EditPost = ({ onBack }) => {
                     ></textarea>
                   </div>
 
-                  {/* Floating Tip */}
                   <div className="editor-tip">
                     <span className="tip-icon">⌨️</span>
                     <span>Markdown Enabled</span>
@@ -119,9 +106,7 @@ const EditPost = ({ onBack }) => {
                 </div>
               </section>
 
-              {/* Sidebar Meta Controls */}
               <aside className="edit-post-sidebar">
-                {/* Publishing Status Card */}
                 <div className="sidebar-card">
                   <h3 className="card-title">Publishing Status</h3>
                   
@@ -143,7 +128,6 @@ const EditPost = ({ onBack }) => {
                     <span className="status-text">Visible to public after publish</span>
                   </div>
 
-                  {/* Category Dropdown */}
                   <div className="category-section">
                     <label className="dropdown-label">Primary Category</label>
                     <div className="dropdown-wrapper">
@@ -162,7 +146,6 @@ const EditPost = ({ onBack }) => {
                   </div>
                 </div>
 
-                {/* Cover Preview Card */}
                 <div className="sidebar-card cover-card">
                   <h3 className="card-title">Cover Preview</h3>
                   <div className="cover-preview-wrapper">
@@ -188,7 +171,6 @@ const EditPost = ({ onBack }) => {
           </div>
         </main>
 
-        {/* Bottom Action Bar */}
         <div className="edit-post-footer">
           <div className="footer-content">
             <button className="btn-discard" onClick={handleDiscardDraft}>
