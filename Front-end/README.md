@@ -4,7 +4,7 @@ A production-ready React + Bootstrap 5 dashboard for a headless CMS platform. Bu
 
 ## 📦 Project Structure
 
-```
+```.
 src/
 ├── components/
 │   ├── Sidebar.jsx          # Fixed sidebar navigation
