@@ -1,0 +1,50 @@
+.header span{
+    color: #4f86c6 ;
+font-weight: bold;
+font-size: 1.5rem;
+}
+.header h2{ 
+    font-weight: bold;
+}
+
+
+.form {
+    font-size:1.5rem;
+    font-weight: bold;
+    opacity: 0.8;
+    
+}
+.input{
+    border-bottom: solid gainsboro 0.1px;
+    border-radius: 20%;
+    margin-bottom: 5px;
+}
+.input i{
+    font-size: 1.5rem;
+    opacity: 0.5;
+    
+}
+.input input{
+    border: none;
+}
+
+.btn{
+    background-color: #376ead;
+    border-radius: 20px;
+    font-size: 2rem;
+
+}
+
+.access{
+    font-size: 1rem;
+    opacity: 0.8;
+    font-weight: bold;
+}
+.access p{
+display: inline;
+color: #376ead;
+}
+.access span{
+    display: inline;
+    
+}

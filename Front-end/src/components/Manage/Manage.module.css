@@ -1,0 +1,30 @@
+.header{
+    
+}
+
+ .img{
+    
+    height: 3rem;
+    width: 3rem;
+    border-radius: 30%;
+}
+.state {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+}
+.published {
+  background: green;
+}
+
+.draft {
+  background: orange;
+}
+
+.archived {
+  background: gray;
+}
