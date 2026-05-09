@@ -1,7 +1,5 @@
 {
-
   "name": "mini-cms-backend",
-
   "version": "1.0.0",
 
   "description": "",
@@ -25,11 +23,7 @@
   "dependencies": {
 
     "bcrypt": "^6.0.0",
-
-    "bcryptjs": "^3.0.3",
-
     "dotenv": "^17.4.2",
-
     "express": "^5.2.1",
 
     "jsonwebtoken": "^9.0.3",
