@@ -7,7 +7,7 @@ import img1 from '../assets/img(1).png';
 import img2 from '../assets/img(2).png';
 import img3 from '../assets/img(3).png';
 
-const Dashboard = () => {
+const Dashboard = ({ onCreatePost }) => {
   return (
     <div className="dashboard">
       <Topbar />
@@ -41,7 +41,7 @@ const Dashboard = () => {
         <div className="quick-actions">
           <h3>Quick Actions</h3>
           <div className="actions-grid">
-            <ActionButton label="+ Create New Post" isPrimary={true} />
+            <ActionButton label="+ Create New Post" isPrimary={true} onClick={onCreatePost} />
             <ActionButton label="🔒 Import Assets" />
             <ActionButton label="⚙ CMS Settings" />
           </div>
