@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 exports.getAllPost =async (req,res)=>{
+
     try{
         const post=await Post.find();
         res.status(200).json(post);
@@ -43,3 +44,4 @@ exports.updatePost= async (req,res) => {
         res.status(500).json({error:error.message});        
     }
 };
+

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const schema= new mongoose.Schema({
+const postSchema= new mongoose.Schema({
+
     title:{
         type:String,
         required:true,
@@ -21,5 +22,6 @@ const schema= new mongoose.Schema({
         type:Date,
         default:Date.now,
     },
+
 })
-module.exports = mongoose.model('post',schema);
+module.exports = mongoose.model('post',postSchema);
