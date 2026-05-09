@@ -69,7 +69,7 @@ export default function Manage() {
                 <p>{card.desc}</p>
               </div>
 
-              <div className={`${status} d-flex justify-content-evenly`}>
+              <div className={`${card.status} d-flex justify-content-evenly`}>
                 <span className={`${style.state} ${style[card.status]}`}>{card.status}</span>
 
                 <i className="fa-solid fa-eye"></i>
