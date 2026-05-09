@@ -2,8 +2,8 @@
 import './App.css'
 import { useState } from 'react'
 import Dashboard from './pages/Dashboard'
-import EditPost from './pages/EditPost'
-
+import Login from './pages/LoginPage'
+import PostManagementPage from './pages/PostManagementPage'
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
 
@@ -12,11 +12,9 @@ function App() {
 
   return (
     <>
-      {currentPage === 'dashboard' ? (
-        <Dashboard onCreatePost={navigateToEditPost} />
-      ) : (
-        <EditPost onBack={navigateToDashboard} />
-      )}
+      
+      <Login/>
+      <PostManagementPage/>
     </>
   )
 }
