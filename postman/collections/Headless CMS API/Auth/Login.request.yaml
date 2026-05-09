@@ -1,0 +1,54 @@
+$kind: http-request
+name: Login
+method: POST
+url: "{{baseUrl}}/api/users/login"
+description: Login with email and password to receive an auth token.
+order: 2000
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "maher@example.com",
+      "password": "12345678"
+    }
+tests: |-
+  // Status code: 200 OK (confirmed in both collection runs)
+  pm.test("Status code is 200", function () {
+      pm.response.to.have.status(200);
+  });
+
+  // Response time under 2 seconds
+  pm.test("Response time is under 2000ms", function () {
+      pm.expect(pm.response.responseTime).to.be.below(2000);
+  });
+
+  // Response is JSON
+  pm.test("Response Content-Type is application/json", function () {
+      pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+  });
+
+  // Response body has a token field
+  pm.test("Response contains auth token", function () {
+      const json = pm.response.json();
+      pm.expect(json).to.be.an("object");
+      pm.expect(json).to.have.any.keys("token", "accessToken", "access_token", "jwt");
+  });
+
+  // Token is a non-empty string
+  pm.test("Token is a non-empty string", function () {
+      const json = pm.response.json();
+      const token = json.token || json.accessToken || json.access_token || json.jwt;
+      pm.expect(token).to.be.a("string").and.to.have.length.above(0);
+  });
+
+  // Save token to environment for subsequent requests
+  pm.test("Token saved to environment variable", function () {
+      const json = pm.response.json();
+      const token = json.token || json.accessToken || json.access_token || json.jwt;
+      if (token) {
+          pm.environment.set("token", token);
+          pm.expect(pm.environment.get("token")).to.eql(token);
+      }
+  });

@@ -1,7 +1,7 @@
-const { string } = require("joi");
+// const { string } = require("joi");
 const mongoose = require("mongoose");
 
-const Userschema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
     {   
     username: {
         type: String,
@@ -33,4 +33,4 @@ const Userschema = new mongoose.Schema(
    
 );
 
-module.exports = mongoose.model("User",Userschema);
+module.exports = mongoose.model("User",UserSchema);

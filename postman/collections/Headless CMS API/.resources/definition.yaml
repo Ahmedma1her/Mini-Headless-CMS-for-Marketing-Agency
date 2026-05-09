@@ -1,0 +1,7 @@
+$kind: collection
+name: Headless CMS API
+description: "API collection for the Headless CMS project. Covers authentication
+  (register/login) and post management (CRUD). Base URL: {{baseUrl}}"
+variables:
+  maher token: ""
+  token: ""

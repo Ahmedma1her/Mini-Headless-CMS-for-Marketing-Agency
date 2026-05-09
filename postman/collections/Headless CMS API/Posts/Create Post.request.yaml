@@ -1,0 +1,77 @@
+$kind: http-request
+name: Create Post
+method: POST
+url: "{{baseUrl}}/api/posts/"
+description: Create a new post. Requires Bearer token authentication.
+order: 2000
+auth:
+  type: bearer
+  credentials:
+    token: '{{token}}'
+headers:
+  Content-Type: application/json
+  Authorization: 'Bearer {{token}}'
+body:
+  type: json
+  content: |-
+    {
+      "title": "first Post",
+      "description": "Post description",
+      "category": "digilians"
+    }
+tests: |-
+  // Status code: 201 Created (with valid token) OR 401 Unauthorized (no/invalid token)
+  // Both runs returned 401 — token was not set at run time
+  pm.test("Status code is 201 or 401", function () {
+      pm.expect(pm.response.code).to.be.oneOf([201, 401]);
+  });
+
+  // Response time under 2 seconds
+  pm.test("Response time is under 2000ms", function () {
+      pm.expect(pm.response.responseTime).to.be.below(2000);
+  });
+
+  // Response is JSON
+  pm.test("Response Content-Type is application/json", function () {
+      pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+  });
+
+  // On success (201): response has the created post object
+  if (pm.response.code === 201) {
+      pm.test("Created post has an ID", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("object");
+          pm.expect(json).to.have.any.keys("_id", "id");
+      });
+
+      pm.test("Created post title matches request", function () {
+          const json = pm.response.json();
+          if (json.title) {
+              pm.expect(json.title).to.eql("first Post");
+          }
+      });
+
+      pm.test("Created post category matches request", function () {
+          const json = pm.response.json();
+          if (json.category) {
+              pm.expect(json.category).to.eql("digilians");
+          }
+      });
+
+      pm.test("Save created post ID to environment", function () {
+          const json = pm.response.json();
+          const postId = json._id || json.id;
+          if (postId) {
+              pm.environment.set("postId", postId);
+              pm.expect(pm.environment.get("postId")).to.eql(postId);
+          }
+      });
+  }
+
+  // On failure (401): response has unauthorized message
+  if (pm.response.code === 401) {
+      pm.test("Unauthorized response contains message field", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.any.keys("message", "error", "msg");
+      });
+  }

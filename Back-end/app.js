@@ -9,7 +9,7 @@ const postRoutes = require("./routes/postRoute");
 async function connectDB () {
 
  try{
-await mongoose.connect ("mongodb://localhost:27017/minicmsproject");
+await mongoose.connect (process.env.DB_URL);
  console.log("MongoDB Connected");
 
  } catch (error) {

@@ -17,7 +17,7 @@ const protect = async (req, res, next) => {
             req.user = await User.findById(decoded.id).select('-password');
             
             if (!req.user) {
-                return res.status(401).json({ message: 'المستخدم غير موجود' });
+                return res.status(401).json({ message: 'user not found' });
             }
 
             next(); // الانتقال للـ Controller
