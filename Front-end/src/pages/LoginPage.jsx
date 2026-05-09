@@ -8,4 +8,4 @@ function LoginPage (){
     )
 }
 
-export default Login
+export default LoginPage
