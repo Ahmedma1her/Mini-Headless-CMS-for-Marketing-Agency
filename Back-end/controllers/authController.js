@@ -1,18 +1,20 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 // تسجيل المستخدم الجديد
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body; 
+    const { username, email, password, role } = req.body; 
 
+    // تشفير كلمة المرور
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
-      name,
+      username, 
       email,
       password: hashedPassword,
-      role
+      role: role || 'user' 
     });
 
     await newUser.save();
@@ -21,6 +23,7 @@ exports.register = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // تسجيل الدخول
 exports.login = async (req, res) => {
   try {
@@ -39,12 +42,13 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
+
     res.status(200).json({
       message: "Login successful",
       token,
       user: {
         id: user._id,
-        name: user.name,
+        username: user.username, 
         email: user.email,
         role: user.role
       }
@@ -53,3 +57,4 @@ exports.login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
