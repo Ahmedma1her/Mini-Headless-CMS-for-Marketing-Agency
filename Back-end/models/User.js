@@ -1,10 +1,12 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 
-const Userschema = new mongoose.Schema({
+const Userschema = new mongoose.Schema(
+    {   
     username: {
         type: String,
         required: true,
-        trim: true,
+       
     },
 
     email: {
@@ -19,11 +21,16 @@ const Userschema = new mongoose.Schema({
     },
 
     role: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref: "Role",
-    },
+        type: String,
 
-    timestamps: true
-});
+            enum: ['admin', 'organizer', 'user'],
+            default: 'user',
+    },},
+    {
+         timestamps: true
+    }
 
-module.exports = mongoose.model("User", Usershema);
+   
+);
+
+module.exports = mongoose.model("User",Userschema);
