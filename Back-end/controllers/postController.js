@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Post = require('../models/Post')
 const {postSchema,updatePostSchema}=require('../middleware/validation')
 exports.getAllPost =async (req,res)=>{
@@ -58,5 +59,77 @@ exports.updatePost= async (req,res) => {
     }catch (error){
         res.status(500).json({error:error.message});        
     }
+=======
+const Post = require("../models/Post");
+
+exports.getAllPost = async (req, res) => {
+  try {
+    const post = await Post.find();
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+>>>>>>> 2b7b510 (feat: integrate multer middleware for file uploads)
 };
 
+exports.createPost = async (req, res) => {
+  try {
+    const { title, description, category } = req.body;
+
+    const newPost = new Post({
+      title,
+      description,
+      category,
+      image: req.file ? req.file.path : null,
+    });
+
+    await newPost.save();
+
+    res.status(201).json({
+      message: "Post created successfully",
+      post: newPost,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deletePost = async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ message: "Post deleted" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updatePost = async (req, res) => {
+  try {
+    const { title, description, category, status } = req.body;
+
+    const updatedData = {
+      title,
+      description,
+      category,
+      status,
+    };
+
+    if (req.file) {
+      updatedData.image = req.file.path;
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Post updated",
+      post: updatedPost,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
