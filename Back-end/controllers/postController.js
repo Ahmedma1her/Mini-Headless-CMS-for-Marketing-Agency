@@ -1,134 +1,94 @@
-<<<<<<< HEAD
-const Post = require('../models/Post')
-const {postSchema,updatePostSchema}=require('../middleware/validation')
-exports.getAllPost =async (req,res)=>{
+const Post = require('../models/Post');
+const { postSchema, updatePostSchema } = require('../middleware/validation');
 
-    try{
-        const post=await Post.find()
-        if (post.length === 0)return res.status(400).json({msg:"you're invited to create the first post"})
-        res.status(200).json(post)
-    }catch(error){
-        res.status(500).json({error:error.message});
-    }
-};
-exports.createPost = async (req,res)=>{
-    try{
-        // const{title,description,category}=req.body;
-        const {error,value}=postSchema.validate(req.body,{
-            stripUnknown:true,
-            abortEarly:true
-        })
-        if (error) return res.status(400).json({msg:"kindly fill all the required fields"})
-            const{title,description,category}=value
-      const newPost = new Post({
-            title,
-            description,
-            category,
-});
 
-        await newPost.save();
-        res.status(201).json({message:"Post created successfully",post:newPost});
-    }catch(error){
-        res.status(500).json({error:error.message});
-    }
+const extractURLFromMarkdown = (text) => {
+  if (!text) return text;
+  
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+  let extractedURL = null;
+  
+  while ((match = linkRegex.exec(text)) !== null) {
+    extractedURL = match[2]; // Get the URL part
+    break; 
+  }
+  
+  return extractedURL || text; 
 };
-exports.deletePost= async (req,res) => {
-    try{
-       const deletedPost = await Post.findByIdAndDelete(req.params.id);
-       if (!deletedPost) return res.status(404).json({msg:"post not found"})
-        res.status(200).json({message:"Post deleted"});
-    }catch (error){
-        res.status(500).json({error:error.message});
-    }
-};
-exports.updatePost= async (req,res) => {
-    try{
-        const {error,value}=updatePostSchema.validate(req.body,{
-            stripUnknown:true,
-            abortEarly:true
-        })
-        if (error) return res.status(400).json({msg:"kindly fill all the required fields"})
-        const {title,description,category,status}=value             
-        const updatedPost = await Post.findByIdAndUpdate(
-            req.params.id,
-            {title,description,category,status},
-            {new:true}
-        );
-        if (!updatedPost) return res.status(404).json({msg:"post not found"})
-        res.status(200).json({message:"Post updated",post:updatedPost});
-    }catch (error){
-        res.status(500).json({error:error.message});        
-    }
-=======
-const Post = require("../models/Post");
 
+// GET all posts
 exports.getAllPost = async (req, res) => {
   try {
-    const post = await Post.find();
-    res.status(200).json(post);
+    const posts = await Post.find().sort({ createdAt: -1 });
+    res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
->>>>>>> 2b7b510 (feat: integrate multer middleware for file uploads)
 };
 
+// CREATE post
 exports.createPost = async (req, res) => {
   try {
-    const { title, description, category } = req.body;
+    const { error, value } = postSchema.validate(req.body, {
+      stripUnknown: true,
+      abortEarly: true,
+    });
+    if (error) return res.status(400).json({ message: error.details[0].message });
+
+    let { title, description, category, status } = value;
+    
+    
+    description = extractURLFromMarkdown(description);
 
     const newPost = new Post({
       title,
       description,
       category,
-      image: req.file ? req.file.path : null,
+      status: status || 'draft',
+      image: req.file ? req.file.filename : null,
     });
 
     await newPost.save();
-
-    res.status(201).json({
-      message: "Post created successfully",
-      post: newPost,
-    });
+    res.status(201).json({ message: 'Post created successfully', post: newPost });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
+// DELETE post
 exports.deletePost = async (req, res) => {
   try {
-    await Post.findByIdAndDelete(req.params.id);
-
-    res.status(200).json({ message: "Post deleted" });
+    const deletedPost = await Post.findByIdAndDelete(req.params.id);
+    if (!deletedPost) return res.status(404).json({ message: 'Post not found' });
+    res.status(200).json({ message: 'Post deleted' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
+// UPDATE post
 exports.updatePost = async (req, res) => {
   try {
-    const { title, description, category, status } = req.body;
-
-    const updatedData = {
-      title,
-      description,
-      category,
-      status,
-    };
-
-    if (req.file) {
-      updatedData.image = req.file.path;
-    }
-
-    const updatedPost = await Post.findByIdAndUpdate(
-      req.params.id,
-      updatedData,
-      { new: true }
-    );
-
-    res.status(200).json({
-      message: "Post updated",
-      post: updatedPost,
+    const { error, value } = updatePostSchema.validate(req.body, {
+      stripUnknown: true,
+      abortEarly: true,
     });
+    if (error) return res.status(400).json({ message: error.details[0].message });
+
+    let updatedData = { ...value };
+    
+    
+    if (updatedData.description) {
+      updatedData.description = extractURLFromMarkdown(updatedData.description);
+    }
+    
+    if (req.file) updatedData.image = req.file.filename;
+
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    if (!updatedPost) return res.status(404).json({ message: 'Post not found' });
+
+    res.status(200).json({ message: 'Post updated', post: updatedPost });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

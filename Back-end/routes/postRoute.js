@@ -1,48 +1,47 @@
-const express = require("express");
-const router = express.Router();
-<<<<<<< HEAD
-const { protect, authorize } = require("../middleware/authmiddleware.js");
-const {validate} = require("../middleware/validation");
+const express = require('express');
+const router  = express.Router();
+const multer  = require('multer');
+const { protect, authorize } = require('../middleware/authmiddleware');
+const upload = require('../middleware/upload');
+const { createPost, deletePost, getAllPost, updatePost } = require('../controllers/postController');
 
+const handleUploadError = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ message: 'Image is too large. Maximum allowed size is 10 MB.' });
+    }
+    return res.status(400).json({ message: `Upload error: ${err.message}` });
+  }
+  if (err) {
+    return res.status(400).json({ message: err.message });
+  }
+  next();
+};
 
-const { createPost, deletePost,getAllPost, updatePost} = require("../controllers/postController");
-=======
+router.get('/all', getAllPost);
 
-const upload = require("../middleware/upload");
-const {
-  createPost,
-  deletePost,
-  getAllPost,
-  updatePost,
-} = require("../controllers/postController");
-
-const { protect, authorize } = require("../middleware/authMiddleware");
->>>>>>> 2b7b510 (feat: integrate multer middleware for file uploads)
-
-router.get("/all", getAllPost);
-
-// CREATE POST (with image upload)
 router.post(
-  "/",
+  '/',
   protect,
-  upload.single("image"),
+  authorize('admin', 'organizer'),
+  upload.single('image'),
+  handleUploadError,
   createPost
 );
 
-// DELETE POST
 router.delete(
-  "/:id",
+  '/:id',
   protect,
-  authorize("admin", "organizer"),
+  authorize('admin', 'organizer'),
   deletePost
 );
 
-// UPDATE POST (with optional image)
 router.put(
-  "/:id",
+  '/:id',
   protect,
-  authorize("admin", "organizer"),
-  upload.single("image"),
+  authorize('admin', 'organizer'),
+  upload.single('image'),
+  handleUploadError,
   updatePost
 );
 

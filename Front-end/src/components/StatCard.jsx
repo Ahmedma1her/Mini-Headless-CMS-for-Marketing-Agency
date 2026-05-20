@@ -1,10 +1,10 @@
 import React from 'react';
 
-const StatCard = ({ icon, label, value, trend, trendText }) => {
+const StatCard = ({ iconClass, label, value, trend, trendText }) => {
   return (
     <div className="stat-card">
       <div className="stat-icon">
-        {icon}
+        <i className={iconClass}></i>
       </div>
       <div className="stat-content">
         {trend && <p className="stat-trend">{trend} {trendText}</p>}

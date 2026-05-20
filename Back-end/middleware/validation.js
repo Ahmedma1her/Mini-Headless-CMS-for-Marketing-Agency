@@ -1,16 +1,6 @@
 const joi = require('joi');
-// const validateRequest = (schema) => {
-//  return (req, res, next) => {
-//  const validSchema = schema;
 
-//  const { error } = joi.validate(req.body, validSchema);
-//  if (error) {
-//  return res.status(400).json({ message: error.details[0].message });
-//  }
-//  next();
-//  };
-// }
-const textRegex = /^[a-zA-Z0-9\s.,!?_-]+$/;
+const textRegex = /^[a-zA-Z0-9\s.,!?_/:&#()@-]+$/;
 const usernameRegex = /^[a-zA-Z0-9_]+$/;
 const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]+$/;
 const registerSchema=
@@ -28,15 +18,15 @@ const loginSchema = joi.object({
 });
 
 const postSchema = joi.object().keys({
- title: joi.string().pattern(textRegex).required(),
- description: joi.string().pattern(textRegex).required(),
- category: joi.string().pattern(textRegex).required(),
+ title: joi.string().min(1).required(),
+ description: joi.string().min(1).required(),
+ category: joi.string().min(1).required(),
  status: joi.string().valid('draft', 'published').default('draft'), 
 });
 const updatePostSchema = joi.object().keys({
- title: joi.string().pattern(textRegex),
- description: joi.string().pattern(textRegex),
- category: joi.string().pattern(textRegex),
+ title: joi.string().min(1),
+ description: joi.string().min(1),
+ category: joi.string().min(1),
  status: joi.string().valid('draft', 'published'),
 }).min(1);
 module.exports = { loginSchema, registerSchema,postSchema,updatePostSchema };

@@ -18,7 +18,6 @@
   }
 }
 
-/* Main Content */
 .edit-post-content {
   flex: 1;
   padding: 24px;
@@ -38,7 +37,6 @@
   margin: 0 auto;
 }
 
-/* Header Section */
 .edit-post-header {
   display: flex;
   flex-wrap: wrap;
@@ -73,7 +71,6 @@
   color: #999999;
 }
 
-/* Editor Layout Grid */
 .edit-post-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -86,14 +83,12 @@
   }
 }
 
-/* Main Content Section */
 .edit-post-main-content {
   display: flex;
   flex-direction: column;
   gap: 48px;
 }
 
-/* Title Section */
 .title-section {
   margin-bottom: 40px;
 }
@@ -126,7 +121,6 @@
   color: #e0e0e0;
 }
 
-/* Editor Container */
 .editor-container {
   position: relative;
   background-color: #f5f5f5;
@@ -185,7 +179,6 @@
   margin: 0 8px;
 }
 
-/* Editor Content Area */
 .editor-content {
   margin-bottom: 24px;
 }
@@ -210,7 +203,6 @@
   color: rgba(153, 153, 153, 0.6);
 }
 
-/* Editor Floating Tip */
 .editor-tip {
   position: absolute;
   bottom: 24px;
@@ -239,14 +231,12 @@
   font-size: 12px;
 }
 
-/* Sidebar */
 .edit-post-sidebar {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* Sidebar Card */
 .sidebar-card {
   background-color: #f0f4f7;
   border-radius: 8px;
@@ -265,7 +255,6 @@
   margin: 0;
 }
 
-/* Status Control */
 .status-control {
   display: flex;
   flex-direction: column;
@@ -319,7 +308,6 @@
   transform: translateX(20px);
 }
 
-/* Status Indicator */
 .status-indicator {
   display: flex;
   align-items: center;
@@ -348,7 +336,6 @@
   color: #666666;
 }
 
-/* Category Section */
 .category-section {
   display: flex;
   flex-direction: column;
@@ -397,7 +384,6 @@
   font-size: 12px;
 }
 
-/* Cover Preview Card */
 .cover-card {
   gap: 16px;
 }
@@ -456,7 +442,6 @@
   font-size: 14px;
 }
 
-/* Cover Info */
 .cover-info {
   display: flex;
   flex-direction: column;
@@ -478,7 +463,6 @@
   margin: 0;
 }
 
-/* Bottom Action Bar */
 .edit-post-footer {
   position: fixed;
   bottom: 0;
@@ -597,7 +581,6 @@
   transform: scale(0.98);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .edit-post-content {
     padding: 16px;
@@ -625,7 +608,6 @@
   }
 }
 
-/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .edit-post-container {
     background-color: #1a1a1a;

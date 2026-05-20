@@ -4,13 +4,10 @@ const User = require('../models/User');
 const protect = async (req, res, next) => {
     let token;
 
-    // التأكد من وجود الهيدر ويبدأ بـ Bearer
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
-            // استخراج التوكن
             token = req.headers.authorization.split(' ')[1];
 
-            // التحقق من التوكن باستخدام المفتاح السري
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             
@@ -20,7 +17,7 @@ const protect = async (req, res, next) => {
                 return res.status(401).json({ message: 'user not found' });
             }
 
-            next(); // الانتقال للـ Controller
+            next(); 
         } catch (error) {
             console.error("JWT Verification Error:", error.message);
             return res.status(401).json({ message: 'Not authorized, token failed' });
@@ -32,7 +29,6 @@ const protect = async (req, res, next) => {
     }
 };
 
-// الـ Authorization Middleware (للأدوار مثل Admin)
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!req.user || !roles.includes(req.user.role)) {
